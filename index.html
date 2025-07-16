@@ -1,44 +1,154 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookEat - Reservas para Restaurantes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#FF6347', // Un tono naranja rojizo para los botones principales
-                        secondary: '#4A5568', // Gris oscuro para texto secundario
-                        success: '#38A169', // Verde para confirmaciones
-                        danger: '#E53E3E', // Rojo para errores/no-shows
-                        info: '#3182CE', // Azul para información
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="/static/css/styles.css"> </head>
-<body class="bg-gray-100 font-sans antialiased">
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 flex justify-between items-center">
-        <div class="text-2xl font-bold text-gray-800">BookEat</div>
-        <div class="flex items-center space-x-4">
-            <div class="relative">
-                <input type="text" placeholder="Buscar restaurantes, tipo de comida..." class="py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-64 md:w-96">
-                <svg class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+<div class="px-4 py-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Descubre y Reserva tu Mesa</h2>
+
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8 flex flex-wrap gap-4 items-center">
+        <label for="filter-date" class="font-medium text-gray-700">Día:</label>
+        <input type="date" id="filter-date" value="2025-07-16" class="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary">
+
+        <label for="filter-category" class="font-medium text-gray-700">Categoría:</label>
+        <select id="filter-category" class="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary">
+            <option value="all">Todas</option>
+            <option value="seafood">Pescados y Mariscos</option>
+            <option value="italian">Italiano</option>
+            <option value="vegetarian">Vegetariano</option>
+            <option value="chilean">Comida Chilena</option>
+            <option value="asian">Asiático</option>
+            <option value="cafe">Cafetería</option>
+        </select>
+
+        <label for="filter-location" class="font-medium text-gray-700">Ubicación:</label>
+        <select id="filter-location" class="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary">
+            <option value="all">Todas</option>
+            <option value="maitencillo">Maitencillo</option>
+            <option value="santiago-centro">Santiago Centro</option>
+            <option value="providencia">Providencia</option>
+        </select>
+        
+        <button id="reset-filters" class="ml-auto bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors duration-200">Restablecer Filtros</button>
+    </div>
+
+    <div id="restaurant-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden restaurant-card" data-category="seafood chilean" data-location="maitencillo">
+            <img src="https://via.placeholder.com/400x250/A0DAFB/FFFFFF?text=Restaurant+Olas" alt="Restaurant Olas" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">Restaurant Olas</h3>
+                <p class="text-gray-600 mb-2">Maitencillo • Pescados y Mariscos, Comida Chilena</p>
+                <p class="text-gray-700 text-sm mb-4">Disfruta de las mejores vistas al mar y los pescados frescos de la costa central.</p>
+                <div class="flex flex-wrap gap-2 mb-4 text-sm text-gray-800">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">18:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">19:30</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">21:00</span>
+                </div>
+                <button class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-200 font-semibold reserve-btn" data-restaurant="Restaurant Olas">Reservar</button>
             </div>
-            <button class="text-gray-600 hover:text-gray-800 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-            </button>
-            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600">JS</div>
         </div>
-    </header>
 
-    <main class="container mx-auto py-8 px-4 md:px-0">
-        {% block content %}{% endblock %}
-    </main>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden restaurant-card" data-category="italian" data-location="santiago-centro">
+            <img src="https://via.placeholder.com/400x250/C1E1C1/FFFFFF?text=La+Mesa+de+Santiago" alt="La Mesa de Santiago" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">La Mesa de Santiago</h3>
+                <p class="text-gray-600 mb-2">Santiago Centro • Italiano</p>
+                <p class="text-gray-700 text-sm mb-4">Auténtica cocina italiana en el corazón de la capital, ideal para una cena romántica.</p>
+                <div class="flex flex-wrap gap-2 mb-4 text-sm text-gray-800">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">13:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">14:30</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">20:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">22:00</span>
+                </div>
+                <button class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-200 font-semibold reserve-btn" data-restaurant="La Mesa de Santiago">Reservar</button>
+            </div>
+        </div>
 
-    <script src="/js/main.js"></script> </body>
-</html>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden restaurant-card" data-category="vegetarian fusion" data-location="providencia">
+            <img src="https://via.placeholder.com/400x250/F8D7DA/FFFFFF?text=El+Jardín+Secreto" alt="El Jardín Secreto" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">El Jardín Secreto</h3>
+                <p class="text-gray-600 mb-2">Providencia • Vegetariano, Fusión</p>
+                <p class="text-gray-700 text-sm mb-4">Un oasis verde con platos vegetarianos creativos y ambiente relajado.</p>
+                <div class="flex flex-wrap gap-2 mb-4 text-sm text-gray-800">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">13:30</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">15:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">19:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">20:30</span>
+                </div>
+                <button class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-200 font-semibold reserve-btn" data-restaurant="El Jardín Secreto">Reservar</button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden restaurant-card" data-category="asian" data-location="santiago-centro">
+            <img src="https://via.placeholder.com/400x250/ADD8E6/FFFFFF?text=Sabor+Asiático" alt="Sabor Asiático" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">Sabor Asiático</h3>
+                <p class="text-gray-600 mb-2">Santiago Centro • Asiático</p>
+                <p class="text-gray-700 text-sm mb-4">Un viaje culinario por Asia con platos tradicionales y toques modernos.</p>
+                <div class="flex flex-wrap gap-2 mb-4 text-sm text-gray-800">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">12:30</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">14:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">19:00</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">20:30</span>
+                </div>
+                <button class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-500 transition-colors duration-200 font-semibold reserve-btn" data-restaurant="Sabor Asiático">Reservar</button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden restaurant-card" data-category="cafe" data-location="providencia">
+            <img src="https://via.placeholder.com/400x250/DDA0DD/FFFFFF?text=Café+del+Parque" alt="Café del Parque" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">Café del Parque</h3>
+                <p class="text-gray-600 mb-2">Providencia • Cafetería</p>
+                <p class="text-gray-700 text-sm mb-4">Un acogedor café con excelentes opciones para desayuno y brunch. No requiere reserva de mesa.</p>
+                <a href="#" class="w-full bg-info text-white text-center py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-semibold block mt-4">Ver Menú</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="reservation-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md relative">
+        <button id="close-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600">&times;</button>
+        <h3 class="text-2xl font-bold text-gray-800 mb-4" id="modal-restaurant-name">Reservar en [Nombre del Restaurante]</h3>
+        
+        <form id="reservation-form">
+            <div class="mb-4">
+                <label for="num-people" class="block text-gray-700 text-sm font-bold mb-2">Número de Personas:</label>
+                <input type="number" id="num-people" min="1" value="2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="reservation-date" class="block text-gray-700 text-sm font-bold mb-2">Fecha:</label>
+                <input type="date" id="reservation-date" value="2025-07-16" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="reservation-time" class="block text-gray-700 text-sm font-bold mb-2">Hora:</label>
+                <select id="reservation-time" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" required>
+                    <option value="18:00">18:00</option>
+                    <option value="19:30">19:30</option>
+                    <option value="21:00">21:00</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="notes" class="block text-gray-700 text-sm font-bold mb-2">Notas Adicionales (Opcional):</label>
+                <textarea id="notes" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+            </div>
+            <hr class="my-4">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2">Tu Información de Contacto</h4>
+            <div class="mb-4">
+                <label for="contact-name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                <input type="text" id="contact-name" value="Juan Sebastián" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="contact-email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <input type="email" id="contact-email" value="juan.s@example.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" required>
+            </div>
+            <div class="mb-6">
+                <label for="contact-phone" class="block text-gray-700 text-sm font-bold mb-2">Teléfono:</label>
+                <input type="tel" id="contact-phone" value="+56912345678" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" required>
+            </div>
+            
+            <div class="flex justify-end space-x-4">
+                <button type="button" id="cancel-reservation" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition-colors duration-200">Cancelar</button>
+                <button type="submit" class="bg-primary text-white py-2 px-4 rounded-md hover:bg-red-500 transition-colors duration-200 font-semibold">Confirmar Reserva</button>
+            </div>
+        </form>
+    </div>
+</div>
+
